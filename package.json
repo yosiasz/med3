@@ -1,0 +1,23 @@
+{
+  "name": "med3",
+  "version": "1.0.0",
+  "description": "visualization using d3 and mssql data",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Josiah Solomon",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.7.1",
+    "d3": "^3.5.16",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "mssql": "^3.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yosiasz/med3"
+  }
+}
