@@ -27,11 +27,15 @@ app.get('/', function (req, res) {
     });
 });
 
-//var json = require('./sample/ticker.json');
-
 app.get('/ticker', function (req, res) {
     res.render('ticker', {
         title: 'Hello from render'
+    });
+});
+
+app.get('/madoff', function (req, res) {
+    res.render('wallstreet', {
+        title: 'Hello from the klink'
     });
 });
 

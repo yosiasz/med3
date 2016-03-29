@@ -1,0 +1,120 @@
+<html>
+<head>
+    <title>jsonp test</title>
+    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>      
+    <script src="//d3js.org/d3.v3.min.js"></script>    
+    <script type="text/javascript">
+        $(function(){               
+            $('#select_link').click(function(e){
+                e.preventDefault();
+                console.log('select_link clicked');
+
+                function test(data){
+                    return {"message":"ok"};
+                }
+
+                 $.ajax({
+                    dataType: 'jsonp',
+                    jsonp: 'callback',
+                    url: 'https://chartapi.finance.yahoo.com/instrument/1.0/aapl/chartdata;type=quote;range=10y/json?',                     
+                    success: function(data) {
+                        //console.log('success');
+                        console.log(JSON.stringify(data));
+                        return data;
+                    }
+                });  //ajax
+            });             
+        }); //function end
+    </script>
+</head>
+<body>
+    <script>
+        var graphdata = [];
+        
+        var margin = {top: 20, right: 20, bottom: 30, left: 40},
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        var  date_format = d3.time.format("%d %b");
+
+        var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        //left hand side of bar scale
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .ticks(10); //zero based
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            $.ajax({
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            url: 'https://chartapi.finance.yahoo.com/instrument/1.0/aapl/chartdata;type=quote;range=10y/json?',                     
+            success: function(data) {
+                console.log('success');
+                draw_graph(data.series);
+            }
+        });  //ajax
+        
+                
+function draw_graph(data){
+        console.log(data); 
+        //if (error) throw error;
+
+        //console.log(data);
+        
+        x.domain(data.map(function(d) { return d.Date; }));
+        y.domain([0, d3.max(data, function(d) { return d.volume; })]);
+
+        //Y Axis Label
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis) //builds the ticks
+            .append("text") //builds the vertical y axis and it's label Sales
+            .attr("transform", "rotate(-90)") //controls the label Sales angle
+            .attr("y", 0)  //on the vertical line where is the label Sales going to  be
+            .attr("dy", ".71em")  //attributes for Sales
+            .style("text-anchor", "end")
+            .text("Volume");
+
+        //X Axis tick labels
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+                /*
+                "Date": 20060410,
+                "close": 9.4957,
+                "high": 10.1329,
+                "low": 9.4014,
+                "open": 10.0414,
+                "volume": 207337728
+                */
+                            
+        //BARS: populate bars from data returned from rest API.
+        svg.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            
+            //each bar's unique x,y value in the spatial graphing area
+            .attr("x", function(d) { return x(d.Date); })     
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.volume); })
+            .attr("height", function(d) { return height - y(d.volume); });
+    };  //draw graphdata            
+    </script>    
+</body>
