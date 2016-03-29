@@ -20,5 +20,6 @@ d3.js
    npm install
   Run
     npm start
-$ npm install cors
+  Browse to see charts
+   http://localhost:5000/
 ```
