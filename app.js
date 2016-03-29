@@ -10,7 +10,8 @@ var port = process.env.PORT || 5000;
 
 //used by express first
 app.use(express.static('./public'));
-app.use(express.static('./src'))
+app.use(express.static('./src'));
+
 
 
 //templating engine
@@ -26,5 +27,15 @@ app.get('/', function (req, res) {
     });
 });
 
+//var json = require('./sample/ticker.json');
+
+app.get('/ticker', function (req, res) {
+    res.render('ticker', {
+        title: 'Hello from render'
+    });
+});
+
+
 app.listen(port, function () {
-    console.log('running server on port ' + port);
+    console.log('running server on port ' + port) 
+});

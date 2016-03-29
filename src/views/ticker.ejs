@@ -59,13 +59,24 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var url = 'http://localhost:5000/sales';
-//fetch data from rest API
-d3.json( url, function(error, data) {
+var graphdata =     [{
+        "Date": "20060403",
+        "close": "9.97",
+        "high": "10.2929",
+        "low": "8.7214",
+        "open": "9.0957",
+        "volume": "409506560"
+    }];
+
+//d3.json(graphdata, function(error, data) {
+d3.json("../sample/ticker.json", function(error, data) {
+
   if (error) throw error;
 
-  x.domain(data.map(function(d) { return d.name; }));
-  y.domain([0, d3.max(data, function(d) { return d.subtotal; })]);
+  //console.log(data);
+  
+  x.domain(data.map(function(d) { return d.Date; }));
+  y.domain([0, d3.max(data, function(d) { return d.volume; })]);
 
   //Y Axis Label
   svg.append("g")
@@ -76,30 +87,39 @@ d3.json( url, function(error, data) {
       .attr("y", 0)  //on the vertical line where is the label Sales going to  be
       .attr("dy", ".71em")  //attributes for Sales
       .style("text-anchor", "end")
-      .text("Sales");
+      .text("Volume");
 
 //X Axis tick labels
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
-               
+
+        /*
+        "Date": 20060410,
+        "close": 9.4957,
+        "high": 10.1329,
+        "low": 9.4014,
+        "open": 10.0414,
+        "volume": 207337728
+        */
+                       
 //BARS: populate bars from data returned from rest API.
   svg.selectAll(".bar")
       .data(data)
       .enter().append("rect")
       .attr("class", "bar")
       
-      //each bar's uniuqe x,y value in the spatial graphing area
-      .attr("x", function(d) { return x(d.name); })     
+      //each bar's unique x,y value in the spatial graphing area
+      .attr("x", function(d) { return x(d.Date); })     
       .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.subtotal); })
-      .attr("height", function(d) { return height - y(d.subtotal); });
+      .attr("y", function(d) { return y(d.volume); })
+      .attr("height", function(d) { return height - y(d.volume); });
 });
 
 function type(d) {
-  d.frequency = +Math.random();
-  return d;
-}
+              d.frequency = +d.frequency;
+              return d;
+            }
 
 </script>
