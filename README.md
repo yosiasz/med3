@@ -2,9 +2,9 @@
 A simple site to demo use of data from Microsoft SQL Server to plot
 bar charts using D3.js with a rest api using express.js
 
-mssql
-express
-d3.js
+[mssql.js](https://www.npmjs.com/package/mssql)
+[express.js](https://www.npmjs.com/package/express)
+[d3.js](https://www.npmjs.com/package/d3)
 
 ## Installation 
 
