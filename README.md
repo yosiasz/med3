@@ -8,15 +8,20 @@ d3.js
 
 From a command prompt
 
-==create a folder named med3==
+create a folder named med3
+==========================
     mkdir med3
-==go to that folder==
+Go to that folder
+==========================
     cd med3
-==Clone==
+Clone
+==========================
     git clone https://github.com/yosiasz/med3.git	
-==Install==	
+Install
+==========================	
     npm install
-==Run==
+Run
+==========================
     npm start
 	
     Go to http://localhost:5000/
