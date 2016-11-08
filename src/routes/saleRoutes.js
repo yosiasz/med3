@@ -9,7 +9,7 @@ var getSales = function(){
     
     saleRouter.route('/')    
     .get(function(req,res){
-        sql.connect("mssql://VeerUser:VeerUser@veerdb.sqa1.corbis.biz/Customer").then(function() {
+        sql.connect("mssql://User:Password@your.sql.server/DatabaseName").then(function() {
             // Query for this demo you will need values that will be plotted on the bars.
 			//the column names should be: name, subtotal
             new sql.Request().query('select top 10 productid as name, subtotal  from dbo.OrderDetail o  where ProductID is not null').then(function(recordset) {
