@@ -9,7 +9,7 @@ var getSales = function(){
     
     saleRouter.route('/')    
     .get(function(req,res){
-        sql.connect("mssql://ReportUser:ReportUser@seadevsql01/kilil").then(function() {
+        sql.connect("mssql://username:password@server/database").then(function() {
             // Query for this demo you will need values that will be plotted on the bars.
 			//the column names should be: name, subtotal
             new sql.Request().query('SELECT [tickerdate],[tickerclose],[tickerhigh],[tickerlow],[tickeropen],[volume] FROM [kilil].[dbo].[Ticker]').then(function(recordset) {
