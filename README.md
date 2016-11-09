@@ -9,17 +9,18 @@ bar charts using D3.js with a rest api using express.js
 ## Installation 
 
 ```bash
- From a command prompt
-  create a folder named med3
-   mkdir med3
+ From a command prompt run the following in order to clone repo
+  git clone https://github.com/yosiasz/med3.git
+   
   Go to that folder
    cd med3
-  Clone
-   git clone https://github.com/yosiasz/med3.git
-  Install
+     
+  Install modules
    npm install
+
   Run
     npm start
+    
   Browse to see charts
    http://localhost:5000/
 ```

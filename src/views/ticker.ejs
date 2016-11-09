@@ -59,23 +59,14 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var graphdata =     [{
-        "Date": "20060403",
-        "close": "9.97",
-        "high": "10.2929",
-        "low": "8.7214",
-        "open": "9.0957",
-        "volume": "409506560"
-    }];
+var apiurl = "http://localhost:5000/sales"
 
-//d3.json(graphdata, function(error, data) {
-d3.json("../sample/ticker.json", function(error, data) {
+d3.json(apiurl, function(error, data) {
+//d3.json("../sample/ticker.json", function(error, data) {
 
   if (error) throw error;
 
-  //console.log(data);
-  
-  x.domain(data.map(function(d) { return d.Date; }));
+  x.domain(data.map(function(d) { return d.tickerdate; }));
   y.domain([0, d3.max(data, function(d) { return d.volume; })]);
 
   //Y Axis Label
@@ -94,16 +85,7 @@ d3.json("../sample/ticker.json", function(error, data) {
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
-
-        /*
-        "Date": 20060410,
-        "close": 9.4957,
-        "high": 10.1329,
-        "low": 9.4014,
-        "open": 10.0414,
-        "volume": 207337728
-        */
-                       
+         
 //BARS: populate bars from data returned from rest API.
   svg.selectAll(".bar")
       .data(data)
@@ -111,7 +93,7 @@ d3.json("../sample/ticker.json", function(error, data) {
       .attr("class", "bar")
       
       //each bar's unique x,y value in the spatial graphing area
-      .attr("x", function(d) { return x(d.Date); })     
+      .attr("x", function(d) { return x(d.tickerdate); })     
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.volume); })
       .attr("height", function(d) { return height - y(d.volume); });

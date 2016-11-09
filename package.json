@@ -19,5 +19,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yosiasz/med3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
