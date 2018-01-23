@@ -1,4 +1,8 @@
-drop table dbo.Ticker;
+if exists(select 1 from sys.tables where name = 'Ticker')
+  begin
+    drop table dbo.Ticker;
+  end
+
 
 create table dbo.Ticker(tickerdate datetime, tickerclose decimal(10,3) , tickerhigh decimal(10,3), tickerlow decimal(10,3), tickeropen decimal(10,3), volume int);
 
