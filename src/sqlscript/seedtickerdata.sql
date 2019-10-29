@@ -1,3 +1,6 @@
+use med3
+go
+
 if exists(select 1 from sys.tables where name = 'Ticker')
   begin
     drop table dbo.Ticker;
