@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 app.use('/sales', saleRouter.getSales());
 
 app.get('/', function (req, res) {
-    res.render('index', {
+    res.render('ticker', {
         title: 'Hello from render'
     });
 });
@@ -30,12 +30,6 @@ app.get('/', function (req, res) {
 app.get('/ticker', function (req, res) {
     res.render('ticker', {
         title: 'Hello from render'
-    });
-});
-
-app.get('/madoff', function (req, res) {
-    res.render('wallstreet', {
-        title: 'Hello from the klink'
     });
 });
 
